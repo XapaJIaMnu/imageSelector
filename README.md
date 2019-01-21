@@ -25,4 +25,5 @@ Where *imagesDirectory* is the original directory with many pictures and *select
 ## TODO
 - GUI dialog in addition to command line arguments for selecting directories.
 - Exe file for ease of use for windows users
-- Maybe something else
+- Improve code quality. This my first ever pygame project and I'm pretty sure some things are done not as they should be
+- Image rotation
