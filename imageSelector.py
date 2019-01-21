@@ -66,8 +66,18 @@ if __name__ == '__main__':
     #Setup initial pygame values
     pygame.init()
     pygame.event.set_blocked(pygame.MOUSEMOTION) #We don't do mouse motion event so disable them
-    screen = pygame.display.set_mode((1920, 1080), pygame.RESIZABLE)
+
+    #Set initial window size to be .7 of the current monitor resolution
+    #This is a TODO because it's not yet tested on multiple monitor systems and might fail miserably
+    screenInfo = pygame.display.Info()
     screenSize = (1920, 1080)
+    # if screenInfo.current_w != -1 and screenInfo.current_h != -1:
+    #     screenSize = (int(screenInfo.current_w*.7), int(screenInfo.current_h*.7))
+    # else:
+    #     #potato screen fallback
+    #     screenSize = (1024, 768)
+
+    screen = pygame.display.set_mode(screenSize, pygame.RESIZABLE)
 
     #Setup initial filelist and locations
     fileidx = 0
