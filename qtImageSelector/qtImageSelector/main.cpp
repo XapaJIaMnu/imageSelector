@@ -36,7 +36,6 @@ int main(int argc, char *argv[]) {
 
     fileIterator files(parser.value("i").toLatin1().data(), parser.isSet("r"));
     fileCopier copier(parser.value("t").toLatin1().data());
-    QDesktopWidget widget;
     imageSelector w(files.paths, files.filenames, parser.isSet("l"), &copier);
     w.show();
 
