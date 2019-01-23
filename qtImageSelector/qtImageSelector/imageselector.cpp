@@ -5,8 +5,10 @@
 #include <QKeyEvent>
 #include <iostream>
 
-imageSelector::imageSelector(std::vector<std::string>& files, std::vector<std::string>& names, fileCopier * handle, QWidget *parent) :
-    QMainWindow(parent), fs_handle(handle), ui(new Ui::imageSelector), filepaths(files), filenames(names), i(0) {
+imageSelector::imageSelector(std::vector<std::string>& files, std::vector<std::string>& names,
+                             bool looping, fileCopier * handle, QWidget *parent) :
+    QMainWindow(parent), fs_handle(handle), ui(new Ui::imageSelector),
+    filepaths(files), filenames(names), i(0), loop(looping)  {
     ui->setupUi(this);
 
     //Set background window size ot .7 of the main screen
@@ -24,6 +26,9 @@ imageSelector::imageSelector(std::vector<std::string>& files, std::vector<std::s
 
 void imageSelector::paintEvent(QPaintEvent *) {
 
+    //Set Window title
+    this->setWindowTitle(QCoreApplication::instance()->applicationName() + " - " + filenames[i].c_str());
+
     QPainter painter(this);
     bkgnd_scaled = bkgnd.scaled(this->size(), Qt::KeepAspectRatio);
     QRect rect = bkgnd_scaled.rect();
@@ -38,10 +43,18 @@ void imageSelector::keyPressEvent(QKeyEvent *e) {
             i--;
             bkgnd = QPixmap(filepaths[i].c_str());
             this->update();
+        } else if (loop) {
+            i = filepaths.size() - 1;
+            bkgnd = QPixmap(filepaths[i].c_str());
+            this->update();
         }
     } else if (e->key() == Qt::Key_Right) {
         if (i < filepaths.size() - 1) {
             i++;
+            bkgnd = QPixmap(filepaths[i].c_str());
+            this->update();
+        } else if (loop) {
+            i = 0;
             bkgnd = QPixmap(filepaths[i].c_str());
             this->update();
         }

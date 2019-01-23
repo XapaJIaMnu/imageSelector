@@ -14,7 +14,7 @@ class imageSelector : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit imageSelector(std::vector<std::string>&, std::vector<std::string>&, fileCopier *, QWidget *parent = nullptr);
+    explicit imageSelector(std::vector<std::string>&, std::vector<std::string>&, bool, fileCopier *, QWidget *parent = nullptr);
     ~imageSelector() override;
 
 private:
@@ -25,6 +25,7 @@ private:
     std::vector<std::string>& filepaths;
     std::vector<std::string>& filenames;
     size_t i;
+    bool loop;
 
 protected:
     void keyPressEvent(QKeyEvent *e) override;
