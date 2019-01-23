@@ -24,6 +24,7 @@ private:
     Ui::imageSelector *ui;
     std::vector<std::string>& filepaths;
     std::vector<std::string>& filenames;
+    std::vector<bool> selected;
     size_t i;
     bool loop;
 

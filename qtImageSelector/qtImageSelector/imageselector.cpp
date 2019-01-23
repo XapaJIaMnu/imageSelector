@@ -11,6 +11,9 @@ imageSelector::imageSelector(std::vector<std::string>& files, std::vector<std::s
     filepaths(files), filenames(names), i(0), loop(looping)  {
     ui->setupUi(this);
 
+    //Set the "selected" vector
+    selected.resize(files.size());
+
     //Set background window size ot .7 of the main screen
     QRect mainScreenSize = QGuiApplication::primaryScreen()->availableGeometry();
     int width = static_cast<int>(mainScreenSize.width()*.7);
@@ -35,6 +38,12 @@ void imageSelector::paintEvent(QPaintEvent *) {
     QRect devRect(0, 0, painter.device()->width(), painter.device()->height());
     rect.moveCenter(devRect.center());
     painter.drawPixmap(rect.topLeft(), bkgnd_scaled);
+
+    //Draw a green dot in the top left corner to show that an image has been selected
+    if (selected[i]) {
+        painter.setBrush(QBrush(Qt::green));
+        painter.drawEllipse(10,10, 50, 50);
+    }
 }
 
 void imageSelector::keyPressEvent(QKeyEvent *e) {
@@ -60,8 +69,12 @@ void imageSelector::keyPressEvent(QKeyEvent *e) {
         }
     } else if (e->key() == Qt::Key_S) {
         fs_handle->copy(filepaths[i]);
+        selected[i] = true;
+        this->update();
     } else if (e->key() == Qt::Key_D) {
         fs_handle->uncopy(filepaths[i]);
+        selected[i] = false;
+        this->update();
     }
 }
 
