@@ -14,7 +14,8 @@ class imageSelector : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit imageSelector(std::vector<std::string>&, std::vector<std::string>&, bool, fileCopier *, QWidget *parent = nullptr);
+    explicit imageSelector(QWidget *parent = nullptr);
+    void setup(QString inputPath, QString outputPath, bool loop, bool recurse);
     ~imageSelector() override;
 
 private:
@@ -22,8 +23,8 @@ private:
     QPixmap bkgnd_scaled;
     fileCopier * fs_handle;
     Ui::imageSelector *ui;
-    std::vector<std::string>& filepaths;
-    std::vector<std::string>& filenames;
+    std::vector<std::string> filepaths;
+    std::vector<std::string> filenames;
     std::vector<bool> selected;
     size_t i;
     bool loop;

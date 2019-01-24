@@ -4,15 +4,24 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <iostream>
+#include "inputprompt.h"
 
-imageSelector::imageSelector(std::vector<std::string>& files, std::vector<std::string>& names,
-                             bool looping, fileCopier * handle, QWidget *parent) :
-    QMainWindow(parent), fs_handle(handle), ui(new Ui::imageSelector),
-    filepaths(files), filenames(names), i(0), loop(looping)  {
+imageSelector::imageSelector(QWidget *parent) :
+    QMainWindow(parent), ui(new Ui::imageSelector) {
     ui->setupUi(this);
+}
+
+void imageSelector::setup(QString inputPath, QString outputPath, bool loop, bool recurse) {
+    this->loop = loop;
+    //@TODO LEAKING
+    fileIterator* files = new fileIterator (inputPath.toLatin1().data(), recurse);
+    fileCopier* copier= new fileCopier(outputPath.toLatin1().data());
+    this->fs_handle = copier;
+    this->filenames = files->filenames;
+    this->filepaths = files->paths;
 
     //Set the "selected" vector
-    selected.resize(files.size());
+    selected.resize(this->filenames.size());
 
     //Set background window size ot .7 of the main screen
     QRect mainScreenSize = QGuiApplication::primaryScreen()->availableGeometry();

@@ -30,14 +30,17 @@ LIBS += -lstdc++fs
 
 SOURCES += \
         main.cpp \
-        imageselector.cpp
+        imageselector.cpp \
+    inputprompt.cpp
 
 HEADERS += \
         imageselector.h \
-    file_utilities.h
+    file_utilities.h \
+    inputprompt.h
 
 FORMS += \
-        imageselector.ui
+        imageselector.ui \
+    inputprompt.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

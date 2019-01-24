@@ -5,6 +5,7 @@
 #include <QCommandLineParser>
 #include <iostream>
 #include "file_utilities.h"
+#include "inputprompt.h"
 
 void parseCommandLine(QCommandLineParser &parser) {
     parser.setApplicationDescription("A small program to identify images to keep from a collection and discard others.");
@@ -34,10 +35,10 @@ int main(int argc, char *argv[]) {
     QCommandLineParser parser;
     parseCommandLine(parser);
 
-    fileIterator files(parser.value("i").toLatin1().data(), parser.isSet("r"));
-    fileCopier copier(parser.value("t").toLatin1().data());
-    imageSelector w(files.paths, files.filenames, parser.isSet("l"), &copier);
-    w.show();
+    imageSelector w(nullptr);
+
+    InputPrompt input(&w, parser);
+    input.show();
 
     return a.exec();
 }
