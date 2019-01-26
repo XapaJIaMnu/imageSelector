@@ -13,12 +13,11 @@ imageSelector::imageSelector(QWidget *parent) :
 
 void imageSelector::setup(QString inputPath, QString outputPath, bool loop, bool recurse) {
     this->loop = loop;
-    //@TODO LEAKING
-    fileIterator* files = new fileIterator (inputPath.toLatin1().data(), recurse);
-    fileCopier* copier= new fileCopier(outputPath.toLatin1().data());
-    this->fs_handle = copier;
-    this->filenames = files->filenames;
-    this->filepaths = files->paths;
+    //@TODO File_iterator need not be a class, but a single function
+    //@TODO Raw pointers are so C99 and therefore EVIL
+    fileIterator* files = new fileIterator (inputPath.toLatin1().data(), this->filepaths, this->filenames, recurse);
+    delete files;
+    this->fs_handle = new fileCopier(outputPath.toLatin1().data());
 
     //Set the "selected" vector
     selected.resize(this->filenames.size());
@@ -90,4 +89,5 @@ void imageSelector::keyPressEvent(QKeyEvent *e) {
 
 imageSelector::~imageSelector() {
     delete ui;
+    delete this->fs_handle;
 }

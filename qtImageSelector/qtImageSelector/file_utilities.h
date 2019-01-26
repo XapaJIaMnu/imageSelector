@@ -19,8 +19,8 @@ namespace fs = std::filesystem;
 
 class fileIterator {
 public:
-std::vector<std::string> paths;
-std::vector<std::string> filenames;
+std::vector<std::string>& paths;
+std::vector<std::string>& filenames;
 const std::unordered_set<std::string> extensions = {".bmp", ".gif", ".jpg", ".jpeg",
                                               ".png", ".pbm", ".pgm", ".ppm",
                                               ".xbm", ".xpm",
@@ -44,7 +44,8 @@ private:
     }
 
 public:
-    fileIterator(const char * root_dir, bool recursive = false) {
+    fileIterator(const char * root_dir, std::vector<std::string>& paths_,
+                 std::vector<std::string>& filenames_, bool recursive = false) : paths(paths_), filenames(filenames_) {
         if (recursive) {
             fs::recursive_directory_iterator iter(root_dir);
             populateList(iter);
