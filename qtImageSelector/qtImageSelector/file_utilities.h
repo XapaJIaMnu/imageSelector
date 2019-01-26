@@ -21,8 +21,13 @@ class fileIterator {
 public:
 std::vector<std::string> paths;
 std::vector<std::string> filenames;
-std::unordered_set<std::string> extensions;
-size_t arraystate;
+const std::unordered_set<std::string> extensions = {".bmp", ".gif", ".jpg", ".jpeg",
+                                              ".png", ".pbm", ".pgm", ".ppm",
+                                              ".xbm", ".xpm",
+                                              ".BMP", ".GIF", ".JPG", ".JPEG",
+                                              ".PNG", ".PBM", ".PGM", ".PPM",
+                                              ".XBM", ".XPM"};
+
 private:
     template<class iterclass>
     void populateList(iterclass& iter) {
@@ -39,12 +44,7 @@ private:
     }
 
 public:
-    fileIterator(const char * root_dir, bool recursive = false) : extensions({".bmp", ".gif", ".jpg", ".jpeg",
-                                                                             ".png", ".pbm", ".pgm", ".ppm",
-                                                                             ".xbm", ".xpm",
-                                                                             ".BMP", ".GIF", ".JPG", ".JPEG",
-                                                                             ".PNG", ".PBM", ".PGM", ".PPM",
-                                                                             ".XBM", ".XPM"}), arraystate(0){
+    fileIterator(const char * root_dir, bool recursive = false) {
         if (recursive) {
             fs::recursive_directory_iterator iter(root_dir);
             populateList(iter);
