@@ -19,7 +19,7 @@ void parseCommandLine(QCommandLineParser &parser) {
             {{"t", "target-directory"},
                 QCoreApplication::translate("main", "The <tgtDirectory> where we will keep the images."),
                 QCoreApplication::translate("main", "tgtDirectory"),
-                          QString("/tmp/dir")}, //default value for testing
+                          QString("/tmp/myselectedimages")}, //default value for testing
             {{"i", "images-directory"},
                 QCoreApplication::translate("main", "The location of the input image <directory>."),
                 QCoreApplication::translate("main", "directory"),
@@ -38,7 +38,11 @@ int main(int argc, char *argv[]) {
     imageSelector w(nullptr);
 
     InputPrompt input(&w, parser);
-    input.show();
+    if ( input.exec() == QDialog::Accepted) {
+        w.setup(input.inputFilepath, input.outputFilepath, input.loop, input.recurse);
+        w.show();
+
+    }
 
     return a.exec();
 }

@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>270</y>
+     <x>540</x>
+     <y>280</y>
      <width>251</width>
      <height>32</height>
     </rect>
@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QCheckBox" name="recurseButton">
+  <widget class="QCheckBox" name="loopButton">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -45,7 +45,7 @@
     <string>Loop files after reaching end</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="loopButton">
+  <widget class="QCheckBox" name="recurseButton">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -70,6 +70,9 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to the folder containing images that you want to filter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
   </widget>
   <widget class="QPlainTextEdit" name="outputPath">
    <property name="geometry">
@@ -80,6 +83,9 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to the directory in which you save the images that you selected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="imagesSelect">
    <property name="geometry">
@@ -89,6 +95,9 @@
      <width>181</width>
      <height>61</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens a file browser.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
     <string>ImagesFolder</string>
@@ -102,6 +111,9 @@
      <width>181</width>
      <height>61</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens a file browser.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
     <string>OutputFolder</string>
