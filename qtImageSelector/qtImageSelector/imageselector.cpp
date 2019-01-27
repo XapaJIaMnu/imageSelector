@@ -15,8 +15,7 @@ void imageSelector::setup(QString inputPath, QString outputPath, bool loop, bool
     this->loop = loop;
     //@TODO File_iterator need not be a class, but a single function
     //@TODO Raw pointers are so C99 and therefore EVIL
-    fileIterator* files = new fileIterator (inputPath.toLatin1().data(), this->filepaths, this->filenames, recurse);
-    delete files;
+    fileUtilities::fileWalker(inputPath.toLatin1().data(), this->filepaths, this->filenames, recurse);
     this->fs_handle = new fileCopier(outputPath.toLatin1().data());
 
     //Set the "selected" vector

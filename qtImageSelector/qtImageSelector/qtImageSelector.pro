@@ -31,7 +31,8 @@ LIBS += -lstdc++fs
 SOURCES += \
         main.cpp \
         imageselector.cpp \
-    inputprompt.cpp
+    inputprompt.cpp \
+    file_utilities.cpp
 
 HEADERS += \
         imageselector.h \

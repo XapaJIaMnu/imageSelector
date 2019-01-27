@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QCommandLineParser>
 #include <iostream>
-#include "file_utilities.h"
 #include "inputprompt.h"
 
 void parseCommandLine(QCommandLineParser &parser) {

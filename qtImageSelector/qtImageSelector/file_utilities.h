@@ -16,48 +16,14 @@ namespace fs = std::filesystem;
 #else
 namespace fs = std::filesystem;
 #endif
+namespace fileUtilities {
+template<class iterclass>
+void populateList(iterclass& iter, std::vector<std::string>& paths,
+                  std::vector<std::string>& filenames);
 
-class fileIterator {
-public:
-std::vector<std::string>& paths;
-std::vector<std::string>& filenames;
-const std::unordered_set<std::string> extensions = {".bmp", ".gif", ".jpg", ".jpeg",
-                                              ".png", ".pbm", ".pgm", ".ppm",
-                                              ".xbm", ".xpm",
-                                              ".BMP", ".GIF", ".JPG", ".JPEG",
-                                              ".PNG", ".PBM", ".PGM", ".PPM",
-                                              ".XBM", ".XPM"};
-
-private:
-    template<class iterclass>
-    void populateList(iterclass& iter) {
-        for (auto& p: iter) {
-            fs::path file(p.path());
-            std::string filename = file.filename();
-            std::string extension = file.extension();
-            std::string filepath = p.path();
-            if (!fs::is_directory(filepath) && extensions.find(extension) != extensions.end()){
-                paths.push_back(filepath);
-                filenames.push_back(filename);
-            }
-        }
-    }
-
-public:
-    fileIterator(const char * root_dir, std::vector<std::string>& paths_,
-                 std::vector<std::string>& filenames_, bool recursive = false) : paths(paths_), filenames(filenames_) {
-        if (recursive) {
-            fs::recursive_directory_iterator iter(root_dir);
-            populateList(iter);
-        } else {
-            fs::directory_iterator iter(root_dir);
-            populateList(iter);
-        }
-        std::sort(paths.begin(), paths.end());
-        std::sort(filenames.begin(), filenames.end());
-    }
-
-};
+void fileWalker (const char * root_dir, std::vector<std::string>& paths,
+                 std::vector<std::string>& filenames, bool recursive = false);
+} //namespace
 
 class fileCopier {
 public:
