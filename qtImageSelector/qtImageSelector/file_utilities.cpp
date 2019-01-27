@@ -11,7 +11,7 @@ void populateList(iterclass& iter, std::vector<std::string>& paths,
                                                   ".PNG", ".PBM", ".PGM", ".PPM",
                                                   ".XBM", ".XPM"};
     for (auto& p: iter) {
-        fs::path file(p.path());
+        const fs::path& file(p.path());
         std::string filename = file.filename();
         std::string extension = file.extension();
         std::string filepath = p.path();

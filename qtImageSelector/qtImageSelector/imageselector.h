@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPainter>
 #include "file_utilities.h"
+#include <memory>
 
 namespace Ui {
 class imageSelector;
@@ -15,18 +16,18 @@ class imageSelector : public QMainWindow
 
 public:
     explicit imageSelector(QWidget *parent = nullptr);
-    void setup(QString inputPath, QString outputPath, bool loop, bool recurse);
+    void setup(QString& inputPath, QString& outputPath, bool loop, bool recurse);
     ~imageSelector() override;
 
 private:
     QPixmap bkgnd;
     QPixmap bkgnd_scaled;
-    fileCopier * fs_handle;
+    std::unique_ptr<fileCopier> fs_handle;
     Ui::imageSelector *ui;
     std::vector<std::string> filepaths;
     std::vector<std::string> filenames;
     std::vector<bool> selected;
-    size_t i;
+    size_t i = 0;
     bool loop;
 
 protected:

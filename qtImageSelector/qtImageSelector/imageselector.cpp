@@ -11,12 +11,11 @@ imageSelector::imageSelector(QWidget *parent) :
     ui->setupUi(this);
 }
 
-void imageSelector::setup(QString inputPath, QString outputPath, bool loop, bool recurse) {
+void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bool recurse) {
     this->loop = loop;
-    //@TODO File_iterator need not be a class, but a single function
-    //@TODO Raw pointers are so C99 and therefore EVIL
+
     fileUtilities::fileWalker(inputPath.toLatin1().data(), this->filepaths, this->filenames, recurse);
-    this->fs_handle = new fileCopier(outputPath.toLatin1().data());
+    this->fs_handle = std::make_unique<fileCopier>(fileCopier(outputPath.toLatin1().data()));
 
     //Set the "selected" vector
     selected.resize(this->filenames.size());
@@ -88,5 +87,4 @@ void imageSelector::keyPressEvent(QKeyEvent *e) {
 
 imageSelector::~imageSelector() {
     delete ui;
-    delete this->fs_handle;
 }
