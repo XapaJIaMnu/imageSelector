@@ -36,4 +36,19 @@ void fileWalker (const char * root_dir, std::vector<std::string>& paths,
     std::sort(filenames.begin(), filenames.end());
 
 }
+
+bool checkIfExistOrDir(const char * path) {
+    try {
+        fs::path pathObj(path);
+        // Check if the path exists and it's a directory
+        if (fs::exists(pathObj) && fs::is_directory(pathObj))
+            return true;
+    }
+    catch (fs::filesystem_error & e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    return false;
+}
+
 } //namespace

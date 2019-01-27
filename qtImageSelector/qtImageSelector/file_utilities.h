@@ -8,7 +8,7 @@
 
 //Try to resolve different FS implementations
 #if defined(Q_OS_WIN)
-namespace fs = std::filesystem;
+namespace fs = std::experimental::filesystem;
 #elif defined(Q_OS_LINUX)
 namespace fs = std::filesystem;
 #elif defined(Q_OS_MAC)
@@ -23,6 +23,8 @@ void populateList(iterclass& iter, std::vector<std::string>& paths,
 
 void fileWalker (const char * root_dir, std::vector<std::string>& paths,
                  std::vector<std::string>& filenames, bool recursive = false);
+
+bool checkIfExistOrDir(const char * path);
 } //namespace
 
 class fileCopier {

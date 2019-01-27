@@ -2,12 +2,14 @@
 #include "ui_inputprompt.h"
 #include <QFileDialog>
 #include <iostream>
+#include "file_utilities.h"
 
 InputPrompt::InputPrompt(QWidget *parent, QCommandLineParser& parser) :
     QDialog(parent),
     ui(new Ui::InputPrompt) {
     ui->setupUi(this);
     this->setParent(parent);
+    this->setWindowTitle(QCoreApplication::instance()->applicationName());
 
     ui->inputPath->setPlainText(parser.value("i"));
     ui->outputPath->setPlainText(parser.value("t"));
