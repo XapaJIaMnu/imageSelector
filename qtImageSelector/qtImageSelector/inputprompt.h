@@ -30,6 +30,8 @@ private slots:
 
     void on_recurseButton_stateChanged(int arg1);
 
+    void on_buttonBox_accepted();
+
 private:
     Ui::InputPrompt *ui;
 public:

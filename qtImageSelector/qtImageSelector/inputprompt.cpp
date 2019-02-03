@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <iostream>
 #include "file_utilities.h"
+#include <QMessageBox>
 
 InputPrompt::InputPrompt(QWidget *parent, QCommandLineParser& parser) :
     QDialog(parent),
@@ -54,4 +55,46 @@ void InputPrompt::on_loopButton_stateChanged(int) {
 
 void InputPrompt::on_recurseButton_stateChanged(int) {
     recurse = ui->recurseButton->isChecked();
+}
+
+void InputPrompt::on_buttonBox_accepted() {
+    QMessageBox error = QMessageBox(this);
+    std::string fserror("");
+    if (!fileUtilities::checkIfExistOrDir(inputFilepath.toUtf8().data())) {
+
+        error.setText(QString("Error! The input directory:\n") + inputFilepath + QString( "\ndoes not exist!"));
+        error.setWindowTitle(QString("Invalid path error"));
+        error.setStandardButtons(QMessageBox::Ok);
+        error.exec();
+        return;
+    } else if (!fileUtilities::checkIfImagesExist(inputFilepath.toUtf8().data(), recurse, fserror)) {
+        if (fserror == "") {
+            error.setText(QString("Error! The input directory:\n") + inputFilepath + QString( "\ndoes not contain any image files!"));
+            error.setWindowTitle(QString("Invalid path error"));
+            error.setStandardButtons(QMessageBox::Ok);
+            error.exec();
+            return;
+        } else {
+            error.setText(QString("Error opening files in the input directory:\n") + inputFilepath + QString("\n") + QString(fserror.c_str()));
+            error.setWindowTitle(QString("Invalid path error"));
+            error.setStandardButtons(QMessageBox::Ok);
+            error.exec();
+            return;
+        }
+    }
+
+    int writeable = fileUtilities::checkIfWritable(outputFilepath.toUtf8().data());
+    if (writeable == 1) {
+        error.setText(QString("Error! The output path:\n") + outputFilepath + QString( "\npoints to a file and not a directory!"));
+        error.setWindowTitle(QString("Invalid path error"));
+        error.setStandardButtons(QMessageBox::Ok);
+        error.exec();
+    } else if (writeable == 2) {
+        error.setText(QString("Error! The output path:\n") + outputFilepath + QString( "\nis not writeable!"));
+        error.setWindowTitle(QString("Invalid path error"));
+        error.setStandardButtons(QMessageBox::Ok);
+        error.exec();
+    } else if (writeable == 0){
+        this->accept();
+    }
 }

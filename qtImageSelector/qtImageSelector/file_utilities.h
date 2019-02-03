@@ -22,9 +22,13 @@ void populateList(iterclass& iter, std::vector<std::string>& paths,
                   std::vector<std::string>& filenames);
 
 void fileWalker (const char * root_dir, std::vector<std::string>& paths,
-                 std::vector<std::string>& filenames, bool recursive = false);
+                 std::vector<std::string>& filenames, bool recursive, std::string& error);
 
 bool checkIfExistOrDir(const char * path);
+
+int checkIfWritable(const char * path);
+
+bool checkIfImagesExist (const char * path, bool recursive, std::string& error);
 } //namespace
 
 class fileCopier {

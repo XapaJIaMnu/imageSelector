@@ -3,6 +3,7 @@
 #include <QScreen>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QMessageBox>
 #include <iostream>
 #include "inputprompt.h"
 
@@ -14,7 +15,15 @@ imageSelector::imageSelector(QWidget *parent) :
 void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bool recurse) {
     this->loop = loop;
 
-    fileUtilities::fileWalker(inputPath.toLatin1().data(), this->filepaths, this->filenames, recurse);
+    std::string fsError("");
+    fileUtilities::fileWalker(inputPath.toLatin1().data(), this->filepaths, this->filenames, recurse, fsError);
+    if (fsError != "") {
+        QMessageBox error = QMessageBox(this);
+        error.setText(QString("Warning! Not all files in:\n") + inputPath + QString( "\nhave been processed, due to encoutering an error:\n") + QString(fsError.c_str()));
+        error.setWindowTitle(QString("Warning"));
+        error.setStandardButtons(QMessageBox::Ok);
+        error.exec();
+    }
     this->fs_handle = std::make_unique<fileCopier>(fileCopier(outputPath.toLatin1().data()));
 
     //Set the "selected" vector
