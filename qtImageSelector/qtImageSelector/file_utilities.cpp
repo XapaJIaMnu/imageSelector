@@ -12,9 +12,9 @@ void populateList(iterclass& iter, std::vector<std::string>& paths,
                                                   ".XBM", ".XPM"};
     for (auto& p: iter) {
         const fs::path& file(p.path());
-        std::string filename = file.filename();
-        std::string extension = file.extension();
-        std::string filepath = p.path();
+        std::string filename = file.filename().u8string();
+        std::string extension = file.extension().u8string();
+        std::string filepath = p.path().u8string();
         if (!fs::is_directory(filepath) && extensions.find(extension) != extensions.end()){
             paths.push_back(filepath);
             filenames.push_back(filename);
@@ -63,8 +63,8 @@ bool _checkIfImages(iterclass& iter) {
     for (auto& p: iter) {
         const fs::path& file(p.path());
 
-        std::string extension = file.extension();
-        std::string filepath = p.path();
+        std::string extension = file.extension().u8string();
+        std::string filepath = p.path().u8string();
         if (!fs::is_directory(filepath) && extensions.find(extension) != extensions.end()){
             return true;
         }
