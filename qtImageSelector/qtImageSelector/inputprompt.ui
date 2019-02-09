@@ -100,7 +100,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens a file browser.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
-    <string>ImagesFolder</string>
+    <string>Images Folder</string>
    </property>
   </widget>
   <widget class="QPushButton" name="outputFolder">
@@ -116,7 +116,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens a file browser.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
-    <string>OutputFolder</string>
+    <string>Output Folder</string>
    </property>
   </widget>
  </widget>
