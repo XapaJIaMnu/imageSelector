@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <QMessageBox>
-#include <iostream>
+#include <QTransform>
 #include "inputprompt.h"
 
 imageSelector::imageSelector(QWidget *parent) :
@@ -41,6 +41,11 @@ void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bo
     this->setPalette(palette);
 }
 
+void imageSelector::rotate(int degrees) {
+    QTransform transform;
+    QTransform trans = transform.rotate(degrees);
+    bkgnd = bkgnd.transformed(trans);
+}
 
 void imageSelector::paintEvent(QPaintEvent *) {
 
@@ -89,6 +94,12 @@ void imageSelector::keyPressEvent(QKeyEvent *e) {
     } else if (e->key() == Qt::Key_D) {
         fs_handle->uncopy(filepaths[i]);
         selected[i] = false;
+        this->update();
+    } else if (e->key() == Qt::Key_W) {
+        this->rotate(-90);
+        this->update();
+    } else if (e->key() == Qt::Key_E) {
+        this->rotate(90);
         this->update();
     }
 }

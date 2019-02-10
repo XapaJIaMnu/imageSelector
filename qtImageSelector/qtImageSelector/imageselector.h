@@ -29,6 +29,7 @@ private:
     std::vector<bool> selected;
     size_t i = 0;
     bool loop;
+    void rotate(int degrees);
 
 protected:
     void keyPressEvent(QKeyEvent *e) override;

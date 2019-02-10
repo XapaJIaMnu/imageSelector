@@ -1,7 +1,6 @@
 #include "inputprompt.h"
 #include "ui_inputprompt.h"
 #include <QFileDialog>
-#include <iostream>
 #include "file_utilities.h"
 #include <QMessageBox>
 

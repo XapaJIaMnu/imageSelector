@@ -3,7 +3,6 @@
 #include <QDesktopWidget>
 #include <QMainWindow>
 #include <QCommandLineParser>
-#include <iostream>
 #include "inputprompt.h"
 
 void parseCommandLine(QCommandLineParser &parser) {
