@@ -37,10 +37,13 @@ int main(int argc, char *argv[]) {
     imageSelector w(nullptr);
 
     InputPrompt input(&w, parser);
+    //@TODO this should be done with slots instead
     if ( input.exec() == QDialog::Accepted) {
         w.setup(input.inputFilepath, input.outputFilepath, input.loop, input.recurse);
         w.show();
 
+    } else {
+        exit(0); // Since we do not use slots correctly we need to manually exit
     }
 
     return a.exec();
