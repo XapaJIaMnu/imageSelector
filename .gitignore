@@ -103,5 +103,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-qtImageSelector/build-*/
-qtImageSelector/qtImageSelector/qtImageSelector.pro.user
+build/
+imageSelector.pro.user
