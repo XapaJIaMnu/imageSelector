@@ -16,7 +16,7 @@ void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bo
     this->loop = loop;
 
     std::string fsError("");
-    fileUtilities::fileWalker(inputPath.toLatin1().data(), this->filepaths, this->filenames, recurse, fsError);
+    fileUtilities::fileWalker(inputPath.toUtf8().data(), this->filepaths, this->filenames, recurse, fsError);
     if (fsError != "") {
         QMessageBox error = QMessageBox(this);
         error.setText(QString("Warning! Not all files in:\n") + inputPath + QString( "\nhave been processed, due to encoutering an error:\n") + QString(fsError.c_str()));
@@ -24,7 +24,7 @@ void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bo
         error.setStandardButtons(QMessageBox::Ok);
         error.exec();
     }
-    this->fs_handle = std::make_unique<fileCopier>(fileCopier(outputPath.toLatin1().data()));
+    this->fs_handle = std::make_unique<fileCopier>(fileCopier(outputPath.toUtf8().data()));
 
     //Set the "selected" vector
     selected.resize(this->filenames.size());
