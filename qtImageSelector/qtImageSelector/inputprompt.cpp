@@ -97,3 +97,20 @@ void InputPrompt::on_buttonBox_accepted() {
         this->accept();
     }
 }
+
+void InputPrompt::on_pushButton_clicked() {
+    QMessageBox help = QMessageBox(this);
+    QString helpoutput("<p><b>imageSelector</b> is a simple program that lets you browse through your photo collection and easily select images to share from it.</p>\
+<p><i>Input Folder</i> is your image collection directory.</p>\
+<p><i>Output Folder</i> is where the selected photos will be saved.</p>\
+<p>Once all paths and options are chosen, the image viewer window opens. This is how to use it:<br><br>\
+<b>LeftArrow</b> and <b>RightArrow</b> go to the previous and next image respectively.<br><br>\
+<b>s</b> saves the image to the  output directory. A green dot will appear in the top left corner to mark the image as selected.<br><br>\
+<b>d</b> removes the image from the output directory.<br><br>\
+<b>w</b> rotates the image left.<br><br>\
+<b>e</b> rotates the image right.</p>");
+    help.setText(helpoutput);
+    help.setWindowTitle(QString("Help"));
+    help.setStandardButtons(QMessageBox::Ok);
+    help.exec();
+}

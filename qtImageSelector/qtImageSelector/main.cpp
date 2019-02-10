@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     a.setApplicationVersion(QString("0.1"));
     a.setApplicationName(QString("imageSelector"));
+    a.setAttribute(Qt::AA_DisableWindowContextHelpButton);
     QCommandLineParser parser;
     parseCommandLine(parser);
 
