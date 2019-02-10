@@ -10,6 +10,7 @@ This program addresses a common issue that people have when they transfer phone 
 - C++17
 
 ### Building
+You can import the project into QtCreator or build it from command line:
 ```bash
 mkdir build
 cd build
@@ -17,8 +18,26 @@ qmake-qt5 CONFIG+=release ../imageSelector.pro
 make -j5
 ```
 
+### Compiling on Windows
+If you are using `mingw`, you don't need to change anything. However there's is currently a bug when using `mingw` and c++17 Filesystem, which will be fixed once gcc 9.0 is released. Until then use the `msvc2017` compiler.
+
+When using `msvc2017`, you need to remove the line
+```bash
+LIBS += -lstdc++fs
+```
+from the `imageSelector.pro` and specify a static build in the same file:
+```bash
+CONFIG += static
+```
+### Deployment for Windows
+On Windows, this is not enough to produce a standalone exe. To create a directory with all the necessary files, put the `imageSelector.exe` in a new directory and use the `windeployqt.exe` which comes with your Qt installation:
+```bash
+path/to/QtInstallation/msvc2017_64/bin/windeployqt.exe path/to/imageSelector.exe`
+```
+Replace `msvc2017_64` with whatever compiler you have.
+
 ## Usage
-imageCreator has a feature complete GUI but also accepts command line arguments.
+imageSelector has a feature complete GUI but also accepts command line arguments.
 ```bash
 imageSelector --help
 Usage: ./imageSelector [options]
