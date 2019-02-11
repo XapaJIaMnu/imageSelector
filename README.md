@@ -5,6 +5,34 @@ This program addresses a common issue that people have when they transfer phone 
 
 **imageSelector** uses Qt to implement a bare bones image viewer that addresses this particular problem. The program is given two paths: A *source directory* which contains all the images from our beach day and a *target directory* which is the place where we are going to save the images we want to show our friends. Using **leftarrow** and **rightarrow** keys we browse the image collection and using the **s** key we *select* a file, copying it to the *target directory*. In addition we can use the **d** key on an image if we changed our mind and no longer want it among the saved files in *target directory*. In addition to that images can be rotated left and right using the **e** and **w** butons
 
+## Usage
+imageSelector has a feature complete GUI but also accepts command line arguments.
+```bash
+imageSelector --help
+Usage: ./imageSelector [options]
+A small program to identify images to keep from a collection and discard others.
+
+Options:
+  -h, --help                             Displays this help.
+  -v, --version                          Displays version information.
+  -r, --recursive                        Load images from multiple
+                                         subdirectories recursively
+  -l, --loop                             After reaching the final image,
+                                         advance back to the first one
+  -t, --target-directory <tgtDirectory>  The <tgtDirectory> where we will keep
+                                         the images.
+  -i, --images-directory <directory>     The location of the input image
+                                         <directory>.
+```
+Where *imagesDirectory* is the original directory with many pictures and *selectedImagesDirectory* is the new directory where we are going to keep only the very best of images
+### Inputs
+- **leftarrow** - move to the next image
+- **rightarrow** - move to the previous image
+- **s** - save an image to *selectedImagesDirectory*
+- **d** - remove an image from *selectedImagesDirectory*. Please note that pressing this key **DOES NOT** remove the image from the original location.
+- **w** - rotate an image left
+- **e** - rotate an image right
+
 ## Requirements:
 - Qt >= 5.10 
 - C++17
@@ -34,35 +62,7 @@ On Windows, this is not enough to produce a standalone exe. To create a director
 ```bash
 path/to/QtInstallation/msvc2017_64/bin/windeployqt.exe path/to/imageSelector.exe`
 ```
-Replace `msvc2017_64` with whatever compiler you have.
-
-## Usage
-imageSelector has a feature complete GUI but also accepts command line arguments.
-```bash
-imageSelector --help
-Usage: ./imageSelector [options]
-A small program to identify images to keep from a collection and discard others.
-
-Options:
-  -h, --help                             Displays this help.
-  -v, --version                          Displays version information.
-  -r, --recursive                        Load images from multiple
-                                         subdirectories recursively
-  -l, --loop                             After reaching the final image,
-                                         advance back to the first one
-  -t, --target-directory <tgtDirectory>  The <tgtDirectory> where we will keep
-                                         the images.
-  -i, --images-directory <directory>     The location of the input image
-                                         <directory>.
-```
-Where *imagesDirectory* is the original directory with many pictures and *selectedImagesDirectory* is the new directory where we are going to keep only the very best of images
-### Inputs
-- **leftarrow** - move to the next image
-- **rightarrow** - move to the previous image
-- **s** - save an image to *selectedImagesDirectory*
-- **d** - remove an image from *selectedImagesDirectory*. Please note that pressing this key **DOES NOT** remove the image from the original location.
-- **w** - rotate an image left
-- **e** - rotate an image right
+Replace `msvc2017_64` with whatever compiler you have. This command will add all Qt dependencies to the folder, which can then be distributed to other users.
 
 ## Version history
 - 0.1 - Initial release
