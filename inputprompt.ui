@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When you reach the final file, pressing right will bring you to the first.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When you reach the final file, pressing right will bring you to the first one again.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
     <string>Loop files after reaching end</string>
@@ -55,10 +55,10 @@
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Instead of looking just into the parent directory, take files recursively from underlying directories. Note that this does not handle duplicated filenames if they happen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Instead of looking just into the main folder, also include images in subfolders of the main folder. Note that this does not handle duplicated filenames if they occur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
-    <string>Recursively traverse directories</string>
+    <string>Also include subfolders</string>
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="inputPath">
@@ -100,7 +100,7 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens a file browser.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
-    <string>Images Folder</string>
+    <string>Image Folder</string>
    </property>
   </widget>
   <widget class="QPushButton" name="outputFolder">
