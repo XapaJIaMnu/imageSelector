@@ -77,11 +77,12 @@ Sometimes this is not quite enough to get the link path set up correctly on Mac,
 ```bash
 install_name_tool -add_rpath "@executable_path/../Frameworks" imageSelector.app/Contents/MacOS/imageSelector
 ```
-You can also manually edit the Makefile and add `-rpath,@executable_path/../Frameworks` to the `LFPLAGS`
+You can also manually edit the Makefile and add `-rpath,@executable_path/../Frameworks` to the `LFLAGS`
 ## Version history
-- 0.1 - Initial release
+- 1.0 - Initial release
 
 ## TODO
 - Installer for windows.
 - Better formatted error messages.
+- Rotated images are not saved in a rotated format. There should be an option to do that.
 - Improved code quality. This is my first Qt application and I'm pretty sure I have done lots of things wrong.
