@@ -82,7 +82,10 @@ You can also manually edit the Makefile and add `-rpath,@executable_path/../Fram
 - 1.0 - Initial release
 
 ## TODO
-- Installer for windows.
+- Installer for Windows.
 - Better formatted error messages.
-- Rotated images are not saved in a rotated format. There should be an option to do that.
 - Improved code quality. This is my first Qt application and I'm pretty sure I have done lots of things wrong.
+- Rotated images are not saved in a rotated format. There should be an option to do that.
+  - Modern cameras include some sort of orientation metadata. If we rotate the image without changing the orientation metadata, other viewer programs will display it wrongly, when rotating those images we need to also change the metadata.
+- Application window looks huge on any mac with resolution bellow fullHD and on any retina mac unless you use the native resolution, instead of a scaled resolution.
+  - This one is a bit annoying to fix, due to the way HiDPI scaling works on different platforms. By default Windows and Linux only scale font sizes on HiDPI displays, whereas Macs do a blanket scaling of everything. While it is possible to mimic mac's behaviour on Linux and Windows, it is not a default option for the majority of users. A proper solution would involve a specific window size settings for mac. You can read more about it on the Qt developer [forums](https://forum.qt.io/topic/100133/cross-platform-app-ui-in-macos-is-double-in-size-compared-to-the-linux-and-windows-version)
