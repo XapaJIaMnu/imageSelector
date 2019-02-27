@@ -29,7 +29,9 @@ private:
     std::vector<bool> selected;
     size_t i = 0;
     bool loop;
+    bool showHelp = true;
     void rotate(int degrees);
+    void drawHelpText(QPixmap& pix);
 
 protected:
     void keyPressEvent(QKeyEvent *e) override;

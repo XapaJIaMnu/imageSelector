@@ -17,11 +17,11 @@ void parseCommandLine(QCommandLineParser &parser) {
             {{"t", "target-directory"},
                 QCoreApplication::translate("main", "The <tgtDirectory> where we will keep the images."),
                 QCoreApplication::translate("main", "tgtDirectory"),
-                          QString("/tmp/myselectedimages")}, //default value for testing
+                          QString("Enter a path to a directory where you will save the selected images, or use the button on the right.")},
             {{"i", "images-directory"},
                 QCoreApplication::translate("main", "The location of the input image <directory>."),
                 QCoreApplication::translate("main", "directory"),
-                          QString("/home/dheart/Pictures/Zurich")}, //default value for testing
+                          QString("Enter the path to your image collection or use the button on the right.")},
         });
     parser.process(QApplication::arguments());
 }

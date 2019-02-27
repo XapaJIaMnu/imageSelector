@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QTransform>
 #include "inputprompt.h"
+#include <QTimer>
 
 imageSelector::imageSelector(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::imageSelector) {
@@ -39,12 +40,22 @@ void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bo
     QPalette palette;
     palette.setBrush(QPalette::Window, Qt::black);
     this->setPalette(palette);
+
+    QTimer::singleShot(10000, this, [this](){this->showHelp = false; this->update();});
 }
 
 void imageSelector::rotate(int degrees) {
     QTransform transform;
     QTransform trans = transform.rotate(degrees);
     bkgnd = bkgnd.transformed(trans);
+}
+
+void imageSelector::drawHelpText(QPixmap& pix) {
+    QPainter p(&pix);
+    p.setPen(QPen(Qt::red));
+    p.setFont(QFont("Noto", 16, QFont::Normal));
+    p.drawText(pix.rect(), Qt::AlignBottom, "To switch between images use leftarrow and rightarrow;\n\
+To select/deselect an image press \"s\" or \"d\";\nTo rotate an image left or right press \"w\" or \"d\".");
 }
 
 void imageSelector::paintEvent(QPaintEvent *) {
@@ -54,6 +65,9 @@ void imageSelector::paintEvent(QPaintEvent *) {
 
     QPainter painter(this);
     bkgnd_scaled = bkgnd.scaled(this->size(), Qt::KeepAspectRatio);
+    if (showHelp) {
+        drawHelpText(bkgnd_scaled);
+    }
     QRect rect = bkgnd_scaled.rect();
     QRect devRect(0, 0, painter.device()->width(), painter.device()->height());
     rect.moveCenter(devRect.center());
