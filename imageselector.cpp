@@ -41,7 +41,7 @@ void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bo
     palette.setBrush(QPalette::Window, Qt::black);
     this->setPalette(palette);
 
-    QTimer::singleShot(10000, this, [this](){this->showHelp = false; this->update();});
+    QTimer::singleShot(20000, this, [this](){this->showHelp = false; this->update();});
 }
 
 void imageSelector::rotate(int degrees) {
@@ -52,10 +52,17 @@ void imageSelector::rotate(int degrees) {
 
 void imageSelector::drawHelpText(QPixmap& pix) {
     QPainter p(&pix);
-    p.setPen(QPen(Qt::red));
+    //Draw a semi-transparent overlay
+    p.setBrush(QBrush(QColor(24, 37, 51, 220)));
+    QPoint centerBottom = pix.rect().bottomLeft();
+    centerBottom.setX(pix.rect().bottomRight().x()/2);
+    p.drawEllipse(centerBottom, pix.rect().size().width(), 200);
+
+    //Write into it
+    p.setPen(QPen(Qt::white));
     p.setFont(QFont("Noto", 16, QFont::Normal));
-    p.drawText(pix.rect(), Qt::AlignBottom, "To switch between images use leftarrow and rightarrow;\n\
-To select/deselect an image press \"s\" or \"d\";\nTo rotate an image left or right press \"w\" or \"d\".");
+    p.drawText(pix.rect(), Qt::AlignBottom, "Next image: LEFTARROW Previous image: RIGHTARROW;\n\
+Select image: \"S\" Deselect image: \"D\";\nRotate left: \"W\" Rotate right: \"D\". This overlay will fade in a bit.");
 }
 
 void imageSelector::paintEvent(QPaintEvent *) {
