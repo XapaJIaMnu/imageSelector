@@ -44,7 +44,7 @@ void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bo
     font = QFont("Noto", 16, QFont::Normal);
     QFontMetrics fm(font);
     helpWidth = fm.width(helptxt);
-    helpHeight = fm.height()*3; //three new lines
+    helpHeight = fm.height()*3+10; //three new lines
 
     //QTimer::singleShot(20000, this, [this](){this->showHelp = false; this->update();});
 }
