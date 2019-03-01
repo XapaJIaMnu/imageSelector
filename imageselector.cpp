@@ -6,7 +6,6 @@
 #include <QMessageBox>
 #include <QTransform>
 #include "inputprompt.h"
-#include <QTimer>
 
 imageSelector::imageSelector(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::imageSelector) {
@@ -41,7 +40,13 @@ void imageSelector::setup(QString& inputPath, QString& outputPath, bool loop, bo
     palette.setBrush(QPalette::Window, Qt::black);
     this->setPalette(palette);
 
-    QTimer::singleShot(20000, this, [this](){this->showHelp = false; this->update();});
+    //Calculate help text dimensions
+    font = QFont("Noto", 16, QFont::Normal);
+    QFontMetrics fm(font);
+    helpWidth = fm.width(helptxt);
+    helpHeight = fm.height()*3; //three new lines
+
+    //QTimer::singleShot(20000, this, [this](){this->showHelp = false; this->update();});
 }
 
 void imageSelector::rotate(int degrees) {
@@ -50,19 +55,17 @@ void imageSelector::rotate(int degrees) {
     bkgnd = bkgnd.transformed(trans);
 }
 
-void imageSelector::drawHelpText(QPixmap& pix) {
-    QPainter p(&pix);
+void imageSelector::drawHelpText(QPainter& p, QRect& rect) {
     //Draw a semi-transparent overlay
     p.setBrush(QBrush(QColor(24, 37, 51, 220)));
-    QPoint centerBottom = pix.rect().bottomLeft();
-    centerBottom.setX(pix.rect().bottomRight().x()/2);
-    p.drawEllipse(centerBottom, pix.rect().size().width(), 200);
+    QPoint centerBottom = rect.bottomLeft();
+    centerBottom.setX(rect.bottomRight().x()/2);
+    p.drawEllipse(centerBottom, helpWidth, helpHeight);
 
     //Write into it
     p.setPen(QPen(Qt::white));
-    p.setFont(QFont("Noto", 16, QFont::Normal));
-    p.drawText(pix.rect(), Qt::AlignBottom, "Next image: LEFTARROW Previous image: RIGHTARROW;\n\
-Select image: \"S\" Deselect image: \"D\";\nRotate left: \"W\" Rotate right: \"D\". This overlay will fade in a bit.");
+    p.setFont(font);
+    p.drawText(rect, Qt::AlignBottom, helptxt);
 }
 
 void imageSelector::paintEvent(QPaintEvent *) {
@@ -72,13 +75,15 @@ void imageSelector::paintEvent(QPaintEvent *) {
 
     QPainter painter(this);
     bkgnd_scaled = bkgnd.scaled(this->size(), Qt::KeepAspectRatio);
-    if (showHelp) {
-        drawHelpText(bkgnd_scaled);
-    }
     QRect rect = bkgnd_scaled.rect();
     QRect devRect(0, 0, painter.device()->width(), painter.device()->height());
     rect.moveCenter(devRect.center());
     painter.drawPixmap(rect.topLeft(), bkgnd_scaled);
+
+    //Draw help text
+    if (showHelp) {
+        drawHelpText(painter, devRect);
+    }
 
     //Draw a green dot in the top left corner to show that an image has been selected
     if (selected[i]) {
@@ -121,6 +126,16 @@ void imageSelector::keyPressEvent(QKeyEvent *e) {
         this->update();
     } else if (e->key() == Qt::Key_E) {
         this->rotate(90);
+        this->update();
+    } else if (e->key() == Qt::Key_H) {
+        this->showHelp = !this->showHelp;
+        this->update();
+    }
+}
+
+void imageSelector::mousePressEvent(QMouseEvent *e) {
+    if (e->button() == Qt::LeftButton) {
+        this->showHelp = !this->showHelp;
         this->update();
     }
 }

@@ -30,11 +30,18 @@ private:
     size_t i = 0;
     bool loop;
     bool showHelp = true;
+    const QString helptxt = "Next image: LEFTARROW Previous image: RIGHTARROW;\n\
+Select image: \"S\" Deselect image: \"D\";\nRotate left: \"W\" Rotate right: \"D\".\
+ Press the left mouse button or \"H\" to toggle this overlay.";
+    QFont font;
+    int helpWidth;
+    int helpHeight;
     void rotate(int degrees);
-    void drawHelpText(QPixmap& pix);
+    void drawHelpText(QPainter& p, QRect& rect);
 
 protected:
     void keyPressEvent(QKeyEvent *e) override;
+    void mousePressEvent(QMouseEvent *e) override;
     void paintEvent(QPaintEvent *) override;
 };
 

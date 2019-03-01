@@ -21,6 +21,13 @@ InputPrompt::InputPrompt(QWidget *parent, QCommandLineParser& parser) :
         loop = true;
         ui->loopButton->setCheckState(Qt::Checked);
     }
+    if (!appSettings.contains(lastInDir)) {
+        appSettings.setValue(lastInDir, QDir::homePath());
+    }
+
+    if (!appSettings.contains(lastOutDir)) {
+        appSettings.setValue(lastOutDir, QDir::homePath());
+    }
 
 }
 
@@ -29,13 +36,17 @@ InputPrompt::~InputPrompt() {
 }
 
 void InputPrompt::on_imagesSelect_clicked() {
-    inputFilepath = QFileDialog::getExistingDirectory(this, QCoreApplication::translate("main", "Open directory"), "./", QFileDialog::ShowDirsOnly);
+    inputFilepath = QFileDialog::getExistingDirectory(this, QCoreApplication::translate("main", "Open directory"),
+                                                      appSettings.value(lastInDir).toString(), QFileDialog::ShowDirsOnly);
     ui->inputPath->setPlainText(inputFilepath);
+    appSettings.setValue(lastInDir, inputFilepath);
 }
 
 void InputPrompt::on_outputFolder_clicked() {
-    outputFilepath = QFileDialog::getExistingDirectory(this, QCoreApplication::translate("main", "Open directory"), "./", QFileDialog::ShowDirsOnly);
+    outputFilepath = QFileDialog::getExistingDirectory(this, QCoreApplication::translate("main", "Open directory"),
+                                                       appSettings.value(lastOutDir).toString(), QFileDialog::ShowDirsOnly);
     ui->outputPath->setPlainText(outputFilepath);
+    appSettings.setValue(lastOutDir, outputFilepath);
 }
 
 

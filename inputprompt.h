@@ -2,6 +2,7 @@
 #define INPUTPROMPT_H
 
 #include <QDialog>
+#include <QSettings>
 #include <QCommandLineParser>
 #include "imageselector.h"
 
@@ -36,6 +37,9 @@ private slots:
 
 private:
     Ui::InputPrompt *ui;
+    const QString lastInDir = "last_in";
+    const QString lastOutDir = "last_out";
+    QSettings appSettings;
 public:
     QString inputFilepath;
     QString outputFilepath;
