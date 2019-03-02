@@ -31,7 +31,7 @@ private:
     bool loop;
     bool showHelp = true;
     const QString helptxt = "Next image: LEFTARROW Previous image: RIGHTARROW;\n\
-Select image: \"S\" Deselect image: \"D\";\nRotate left: \"W\" Rotate right: \"D\".\
+Select image: \"S\" Deselect image: \"D\";\nRotate left: \"W\" Rotate right: \"E\".\
  Press the left mouse button or \"H\" to toggle this overlay.";
     QFont font;
     int helpWidth;
