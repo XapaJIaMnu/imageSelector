@@ -36,6 +36,7 @@ Where *imagesDirectory* is the original directory with many pictures and *select
 ## Requirements:
 - Qt >= 5.10 
 - C++17 filesystem
+- vcrun2015 ([Windows only](https://www.microsoft.com/en-us/download/details.aspx?id=52685))
 
 ### Building
 You can import the project into QtCreator or build it from command line:
