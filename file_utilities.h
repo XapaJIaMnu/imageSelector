@@ -43,7 +43,7 @@ public:
 
     void copy(std::string& path) {
         fs::path filepath(path);
-        fs::path hypofile = fs::path(savedir.string() + std::string("/") + filepath.filename().string());
+        fs::path hypofile = fs::path(savedir.u8string() + std::string("/") + filepath.filename().u8string());
         if (!fs::exists(hypofile)) {
             fs::copy(filepath, savedir);
         }
@@ -51,7 +51,7 @@ public:
 
     void uncopy(std::string& path) {
         fs::path origfile(path);
-        fs::path hypofile = fs::path(savedir.string() + std::string("/") + origfile.filename().string());
+        fs::path hypofile = fs::path(savedir.u8string() + std::string("/") + origfile.filename().u8string());
         if (fs::exists(hypofile)) {
             fs::remove(hypofile);
         }
